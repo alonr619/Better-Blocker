@@ -15,12 +15,60 @@
             margin: 0 0 10px 0;
             color: #333;
         }
-        textarea {
-            width: 100%;
-            height: 100px;
+        .domain-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .domain-item {
             margin-bottom: 10px;
-            font-family: monospace;
-            font-size: 12px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 8px;
+            background: #fafafa;
+        }
+        .domain-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .dropdown-btn {
+            background: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 8px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .dropdown-btn.open {
+            background: #3367d6;
+        }
+        .domain-section {
+            display: none;
+            margin-top: 8px;
+            padding-left: 10px;
+        }
+        .domain-section.open {
+            display: block;
+        }
+        #addDomainInput {
+            width: 200px;
+            padding: 4px;
+            font-size: 14px;
+        }
+        #addDomainBtn {
+            padding: 4px 10px;
+            margin-left: 8px;
+            font-size: 14px;
+            background: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        #addDomainBtn:hover {
+            background: #3367d6;
         }
         button {
             background: #4285f4;
@@ -56,24 +104,19 @@
     <h2>Anti Doom Scroll Settings</h2>
     
     <div class="section">
-        <h3>Blocked Domains (one per line)</h3>
-        <textarea id="universal"></textarea>
-        <p><small>These domains will be completely blocked</small></p>
-    </div>
-    
-    <div class="section">
-        <h3>Exceptions (JSON format)</h3>
-        <textarea id="exceptions"></textarea>
-        <p><small>Specific paths on domains that should be blocked</small></p>
+        <h3>Blocked Domains</h3>
+        <input id="addDomainInput" type="text" placeholder="Add domain..." />
+        <button id="addDomainBtn">Add</button>
+        <ul id="domainList" class="domain-list"></ul>
     </div>
     
     <div class="section">
         <h3>Block Message</h3>
         <textarea id="blockMessage" placeholder="This is not what you're supposed to be doing"></textarea>
+        <button id="saveBlockMessageBtn">Save Message</button>
         <p><small>Message shown when a site is blocked</small></p>
     </div>
     
-    <button id="save">Save Settings</button>
     <button id="reset">Reset to Default</button>
     
     <div id="status" class="status"></div>
