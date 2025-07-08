@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 400px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        button {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #3367d6;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h2>Anti Doom Scroll Settings</h2>
+    
+    <div class="section">
+        <h3>Blocked Domains (one per line)</h3>
+        <textarea id="universal"></textarea>
+        <p><small>These domains will be completely blocked</small></p>
+    </div>
+    
+    <div class="section">
+        <h3>Exceptions (JSON format)</h3>
+        <textarea id="exceptions"></textarea>
+        <p><small>Specific paths on domains that should be blocked</small></p>
+    </div>
+    
+    <div class="section">
+        <h3>Block Message</h3>
+        <textarea id="blockMessage" placeholder="This is not what you're supposed to be doing"></textarea>
+        <p><small>Message shown when a site is blocked</small></p>
+    </div>
+    
+    <button id="save">Save Settings</button>
+    <button id="reset">Reset to Default</button>
+    
+    <div id="status" class="status"></div>
+    
+    <script src="popup.js"></script>
+</body>
+</html> 
