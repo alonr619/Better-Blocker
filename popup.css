@@ -5,17 +5,24 @@ body {
     background: #f6f8fa;
     color: #222;
 }
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
 .section {
     margin-bottom: 28px;
 }
 .section h3 {
     margin: 0 0 14px 0;
     color: #222;
-    font-size: 1.15rem;
+    font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.01em;
+    text-align: center;
+    margin-bottom: 14px;
 }
-.domain-list {
+#domainList {
     list-style: none;
     padding-left: 0;
     margin: 0;
@@ -56,7 +63,7 @@ body {
     font-size: 1.2rem;
     cursor: pointer;
     margin-left: 10px;
-    transition: background 0.15s;
+    transition: transform 0.5s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +71,7 @@ body {
 .dropdown-btn.open {
     background: #d0d8f6;
     transform: rotate(180deg);
-    transition: transform 0.2s;
+    transition: transform 0.5s;
 }
 .domain-section {
     display: none;
@@ -108,7 +115,7 @@ body {
     font-size: 1.08rem;
     border: 1px solid #e0e4ea;
     border-radius: 6px;
-    margin-bottom: 0;
+    margin-bottom: 15px;
     background: #fff;
     transition: border 0.15s;
 }
@@ -129,6 +136,10 @@ body {
 }
 #addDomainBtn:hover {
     background: #2746a6;
+}
+.add-domain-container {
+    text-align: center;
+    margin-bottom: 15px;
 }
 textarea {
     width: 100%;
@@ -161,6 +172,14 @@ button {
 }
 button:hover {
     background: #2746a6;
+}
+#saveBlockMessageBtn {
+    display: block;
+    margin: 0 auto 15px auto;
+}
+#reset {
+    display: block;
+    margin: 0 auto;
 }
 .status {
     margin-top: 10px;

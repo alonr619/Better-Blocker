@@ -44,7 +44,7 @@ function renderDomainList() {
         section.className = 'domain-section';
 
         // Toggle open/close
-        li.onclick = function() {
+        header.onclick = function() {
             section.classList.toggle('open');
             dropdownBtn.classList.toggle('open');
         };
@@ -64,7 +64,8 @@ function renderDomainList() {
                 exBtn.textContent = ex;
                 exBtn.onclick = function() {
                     exceptions[domain].splice(idx, 1);
-                    saveExceptionsAndRerender();
+                    updateDomainSection(domain, li, section);
+                    saveExceptionsAndNotify();
                 };
                 exDiv.appendChild(exBtn);
             });
@@ -86,7 +87,8 @@ function renderDomainList() {
             const val = addExInput.value.trim();
             if (val && !exceptions[domain].includes(val)) {
                 exceptions[domain].push(val);
-                saveExceptionsAndRerender();
+                updateDomainSection(domain, li, section);
+                saveExceptionsAndNotify();
                 addExInput.value = '';
             }
         };
@@ -104,9 +106,65 @@ function renderDomainList() {
     });
 }
 
-function saveExceptionsAndRerender() {
+function updateDomainSection(domain, li, section) {
+    // Clear the section content
+    section.innerHTML = '';
+    
+    // Rebuild the section content
+    const exList = exceptions[domain];
+    if (!exList || exList.length === 0) {
+        const noEx = document.createElement('p');
+        noEx.textContent = 'No Exceptions';
+        section.appendChild(noEx);
+    } else {
+        const exDiv = document.createElement('div');
+        exDiv.className = 'exception-list';
+        exList.forEach((ex, idx) => {
+            const exBtn = document.createElement('button');
+            exBtn.className = 'exception-btn';
+            exBtn.textContent = ex;
+            exBtn.onclick = function() {
+                exceptions[domain].splice(idx, 1);
+                updateDomainSection(domain, li, section);
+                saveExceptionsAndNotify();
+            };
+            exDiv.appendChild(exBtn);
+        });
+        section.appendChild(exDiv);
+    }
+
+    // Re-add the input section
+    const addExDiv = document.createElement('div');
+    addExDiv.style.marginTop = '12px';
+    const addExInput = document.createElement('input');
+    addExInput.type = 'text';
+    addExInput.placeholder = 'Add exception path...';
+    addExInput.style.width = '180px';
+    addExInput.style.marginRight = '8px';
+    addExInput.style.fontSize = '1.08rem';
+    const addExBtn = document.createElement('button');
+    addExBtn.textContent = 'Add';
+    addExBtn.onclick = function() {
+        const val = addExInput.value.trim();
+        if (val && !exceptions[domain].includes(val)) {
+            exceptions[domain].push(val);
+            updateDomainSection(domain, li, section);
+            saveExceptionsAndNotify();
+            addExInput.value = '';
+        }
+    };
+    addExInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            addExBtn.click();
+        }
+    });
+    addExDiv.appendChild(addExInput);
+    addExDiv.appendChild(addExBtn);
+    section.appendChild(addExDiv);
+}
+
+function saveExceptionsAndNotify() {
     chrome.storage.sync.set({ exceptions: exceptions }, function() {
-        renderDomainList();
         showStatus('Exceptions updated!', 'success');
         notifyContentScript();
     });

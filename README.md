@@ -1,11 +1,11 @@
-# Anti Doom Scroll
+# Better Blocker
 
 A Chrome extension that blocks distracting websites and content to help you stay focused.
 
 ## What it does
 
 - Blocks entire domains (like gaming sites)
-- Blocks specific pages on social media (like Instagram reels, Reddit comments)
+- Blocks everything except certain pages on social media (like Instagram reels, Reddit comments)
 - Shows a custom message when you try to access blocked content
 - All settings are customizable
 

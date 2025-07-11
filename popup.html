@@ -5,20 +5,21 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <h2>Anti Doom Scroll Settings</h2>
+    <h1>Better Blocker Settings</h1>
     
     <div class="section">
         <h3>Blocked Domains</h3>
-        <input id="addDomainInput" type="text" placeholder="Add domain..." />
-        <button id="addDomainBtn">Add</button>
-        <ul id="domainList" class="domain-list"></ul>
+        <div class="add-domain-container">
+            <input id="addDomainInput" type="text" placeholder="Add domain..." />
+            <button id="addDomainBtn">Add</button>
+        </div>
+        <ul id="domainList"></ul>
     </div>
     
     <div class="section">
         <h3>Block Message</h3>
         <textarea id="blockMessage" placeholder="This is not what you're supposed to be doing"></textarea>
         <button id="saveBlockMessageBtn">Save Message</button>
-        <p><small>Message shown when a site is blocked</small></p>
     </div>
     
     <button id="reset">Reset to Default</button>
