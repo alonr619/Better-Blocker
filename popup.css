@@ -53,6 +53,7 @@ h1 {
     color: #1a1a1a;
     font-family: inherit;
 }
+
 .dropdown-btn {
     background: #e9eefc;
     color: #3b5bdb;
@@ -72,6 +73,9 @@ h1 {
     background: #d0d8f6;
     transform: rotate(180deg);
     transition: transform 0.5s;
+}
+.delete-btn {
+    margin-top: 20px;
 }
 .domain-section {
     display: none;

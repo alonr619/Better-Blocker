@@ -1,10 +1,8 @@
-// Default settings (fallback)
 let settings = {
     exceptions: {},
     blockMessage: "This is not what you're supposed to be doing"
 };
 
-// Load settings from storage
 function loadSettings() {
     chrome.storage.sync.get(['exceptions', 'blockMessage'], function(result) {
         if (result.exceptions) settings.exceptions = result.exceptions;
@@ -39,13 +37,11 @@ function checkUrl() {
     }
 }
 
-// Listen for settings updates from popup
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === 'reloadSettings') {
         loadSettings();
     }
 });
 
-// Load settings and check URL
 loadSettings();
 checkUrl();

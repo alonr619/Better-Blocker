@@ -1,4 +1,3 @@
-// Default settings
 const defaultSettings = {
     exceptions: {},
     blockMessage: "This is not what you're supposed to be doing"
@@ -6,7 +5,6 @@ const defaultSettings = {
 
 let exceptions = {};
 
-// Load settings when popup opens
 document.addEventListener('DOMContentLoaded', function() {
     loadSettings();
     document.getElementById('reset').addEventListener('click', resetSettings);
@@ -26,7 +24,6 @@ function renderDomainList() {
         const li = document.createElement('li');
         li.className = 'domain-item';
 
-        // Header with domain and dropdown button
         const header = document.createElement('div');
         header.className = 'domain-header';
         const domainSpan = document.createElement('span');
@@ -37,19 +34,17 @@ function renderDomainList() {
         dropdownBtn.textContent = '▽';
         dropdownBtn.className = 'dropdown-btn';
         header.appendChild(dropdownBtn);
+
         li.appendChild(header);
 
-        // Section (hidden by default)
         const section = document.createElement('div');
         section.className = 'domain-section';
 
-        // Toggle open/close
         header.onclick = function() {
             section.classList.toggle('open');
             dropdownBtn.classList.toggle('open');
         };
 
-        // Exception list or 'No Exceptions'
         const exList = exceptions[domain];
         if (!exList || exList.length === 0) {
             const noEx = document.createElement('p');
@@ -72,7 +67,6 @@ function renderDomainList() {
             section.appendChild(exDiv);
         }
 
-        // Add exception input/button
         const addExDiv = document.createElement('div');
         addExDiv.style.marginTop = '12px';
         const addExInput = document.createElement('input');
@@ -101,16 +95,24 @@ function renderDomainList() {
         addExDiv.appendChild(addExBtn);
         section.appendChild(addExDiv);
 
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete Domain';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.onclick = function() {
+            delete exceptions[domain];
+            renderDomainList();
+            saveExceptionsAndNotify();
+        }
+        section.appendChild(deleteBtn);
+
         li.appendChild(section);
         list.appendChild(li);
     });
 }
 
 function updateDomainSection(domain, li, section) {
-    // Clear the section content
     section.innerHTML = '';
     
-    // Rebuild the section content
     const exList = exceptions[domain];
     if (!exList || exList.length === 0) {
         const noEx = document.createElement('p');
@@ -133,7 +135,6 @@ function updateDomainSection(domain, li, section) {
         section.appendChild(exDiv);
     }
 
-    // Re-add the input section
     const addExDiv = document.createElement('div');
     addExDiv.style.marginTop = '12px';
     const addExInput = document.createElement('input');
@@ -161,6 +162,16 @@ function updateDomainSection(domain, li, section) {
     addExDiv.appendChild(addExInput);
     addExDiv.appendChild(addExBtn);
     section.appendChild(addExDiv);
+
+    const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete Domain';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.onclick = function() {
+            delete exceptions[domain];
+            renderDomainList();
+            saveExceptionsAndNotify();
+        }
+        section.appendChild(deleteBtn);
 }
 
 function saveExceptionsAndNotify() {
@@ -174,7 +185,7 @@ function loadSettings() {
     chrome.storage.sync.get(['exceptions', 'blockMessage'], function(result) {
         exceptions = result.exceptions || defaultSettings.exceptions;
         renderDomainList();
-        // Load block message
+
         const blockMessage = result.blockMessage || defaultSettings.blockMessage;
         document.getElementById('blockMessage').value = blockMessage;
     });
