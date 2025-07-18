@@ -53,7 +53,6 @@ h1 {
     color: #1a1a1a;
     font-family: inherit;
 }
-
 .dropdown-btn {
     background: #e9eefc;
     color: #3b5bdb;
@@ -76,6 +75,7 @@ h1 {
 }
 .delete-btn {
     margin-top: 20px;
+    background-color: red;
 }
 .domain-section {
     display: none;
