@@ -1,11 +1,49 @@
 const defaultSettings = {
     exceptions: {},
-    blockMessage: "This is not what you're supposed to be doing"
+    blockMessage: "This is not what you're supposed to be doing",
+    blockStart: null,
+    blockLength: null
 };
 
 let exceptions = {};
+let blockStart = null;
+let blockLength = null;
 
 document.addEventListener('DOMContentLoaded', function() {
+    chrome.storage.sync.get(['blockStart', 'blockLength'], function(result) {
+        blockStart = result.blockStart;
+        blockLength = result.blockLength;
+        if (shouldBlockPopup()) {
+            showBlockedPopup();
+        } else {
+            showNormalPopup();
+        }
+    });
+});
+
+function shouldBlockPopup() {
+    if (!blockStart || !blockLength) return false;
+    const now = Date.now();
+    return now < (blockStart + blockLength * 60 * 1000);
+}
+
+function showBlockedPopup() {
+    document.body.innerHTML = '';
+    const msg = document.createElement('div');
+    msg.style.display = 'flex';
+    msg.style.flexDirection = 'column';
+    msg.style.justifyContent = 'center';
+    msg.style.alignItems = 'center';
+    msg.style.height = '250px';
+    msg.style.fontSize = '1.3rem';
+    msg.style.fontWeight = '600';
+    finalTime = new Date(blockStart + blockLength * 60 * 1000);
+    msg.textContent = "You can't edit this until " + finalTime.toLocaleString("en-US");
+    document.body.appendChild(msg);
+}
+
+function showNormalPopup() {
+    // All previous logic for settings UI
     loadSettings();
     document.getElementById('reset').addEventListener('click', resetSettings);
     document.getElementById('addDomainBtn').addEventListener('click', addDomain);
@@ -15,7 +53,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     document.getElementById('saveBlockMessageBtn').addEventListener('click', saveBlockMessage);
-});
+    document.getElementById('nuclearBtn').addEventListener('click', triggerNuclear);
+}
+
+function triggerNuclear() {
+    const minutes = parseInt(document.getElementById('nuclearMinutes').value, 10);
+    if (isNaN(minutes) || minutes < 1) {
+        showStatus('Please enter a valid number of minutes.', 'error');
+        return;
+    }
+    const now = Date.now();
+    chrome.storage.sync.set({ blockStart: now, blockLength: minutes }, function() {
+        blockStart = now;
+        blockLength = minutes;
+        showBlockedPopup();
+    });
+}
 
 function renderDomainList() {
     const list = document.getElementById('domainList');
