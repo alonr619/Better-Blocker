@@ -1,13 +1,13 @@
 # Better Blocker
 
-A Chrome extension that blocks distracting websites and content to help you stay focused.
+The Chrome extension blockers that I've been using have lacked the features that I needed for my purposes, so I made my own website blocker!
 
 ## What it does
 
-- Blocks entire domains (like gaming sites)
-- Blocks everything except certain pages on social media (like Instagram reels, Reddit comments)
+- Blocks everything on a given domain except for exceptions based on which strings the URL contains
+    - This would allow you to unblock Reddit comment sections, Twitter threads, etc. while blocking the doomscrolling of the feeds
 - Shows a custom message when you try to access blocked content
-- All settings are customizable
+- Nuclear option to stop you from making changes for a given amount of time, when you want to lock in
 
 ## How to install
 
@@ -21,7 +21,5 @@ A Chrome extension that blocks distracting websites and content to help you stay
 
 Click the extension icon to open settings:
 - Add domains to completely block
-- Set up path-specific exceptions (JSON format)
+- Set up path-specific exceptions
 - Customize the block message
-
-That's it! The extension will automatically block sites based on your settings.
