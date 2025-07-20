@@ -53,7 +53,9 @@ function showNormalPopup() {
         }
     });
     document.getElementById('saveBlockMessageBtn').addEventListener('click', saveBlockMessage);
-    document.getElementById('nuclearBtn').addEventListener('click', triggerNuclear);
+    document.getElementById('confirmNuclearBtn').addEventListener('click', triggerNuclear);
+    document.getElementById('nuclearBtn').addEventListener('click', toggleNuclearDisplay);
+    document.getElementById('cancelNuclearBtn').addEventListener('click', toggleNuclearDisplay);
 }
 
 function triggerNuclear() {
@@ -68,6 +70,12 @@ function triggerNuclear() {
         blockLength = minutes;
         showBlockedPopup();
     });
+}
+
+function toggleNuclearDisplay() {
+    document.getElementById('nuclearBtn').classList.toggle("hidden");
+    document.getElementById('confirmNuclearBtn').classList.toggle("hidden");
+    document.getElementById('cancelNuclearBtn').classList.toggle("hidden");
 }
 
 function renderDomainList() {
